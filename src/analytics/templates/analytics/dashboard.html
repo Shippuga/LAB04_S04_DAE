@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard de Analíticas{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4">Dashboard de Analíticas</h1>
+    
+    <div class="row">
+        <!-- Total de vistas -->
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Total de Vistas</h5>
+                    <h2 class="card-text">{{ total_views }}</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <!-- Categorías Populares -->
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    Categorías Más Populares
+                </div>
+                <div class="card-body">
+                    <ul class="list-group">
+                        {% for category in popular_categories %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            {{ category.category.name }}
+                            <span class="badge bg-primary rounded-pill">{{ category.total_views }} vistas</span>
+                        </li>
+                        {% empty %}
+                        <li class="list-group-item">No hay datos disponibles</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Autores Populares -->
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    Autores Más Populares
+                </div>
+                <div class="card-body">
+                    <ul class="list-group">
+                        {% for author in popular_authors %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            {{ author.author.name }}
+                            <span class="badge bg-primary rounded-pill">{{ author.total_views }} vistas</span>
+                        </li>
+                        {% empty %}
+                        <li class="list-group-item">No hay datos disponibles</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Libros Más Vistos -->
+    <div class="card mb-4">
+        <div class="card-header">
+            Libros Más Vistos
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Título</th>
+                            <th>Autor</th>
+                            <th>Vistas</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for book in most_viewed_books %}
+                        <tr>
+                            <td>{{ book.title }}</td>
+                            <td>{{ book.author.name }}</td>
+                            <td>{{ book.view_count }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="3">No hay datos disponibles</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
